@@ -161,7 +161,7 @@ print(f"每行最大值及索引: {x.max(dim=1)}")
 # ============================================================================
 # 5. 张量与 NumPy 互转
 # ============================================================================
-print_section("5. 张量与 NumPy 互转")
+print_section("5.1 张量与 NumPy 互转")
 
 # 张量转 NumPy
 t = torch.tensor([1, 2, 3])
@@ -177,6 +177,25 @@ print(f"NumPy 转张量: {t}, 类型: {type(t)}")
 t[0] = 999
 print(f"修改张量后，NumPy 数组也会变: {np_arr}")
 
+print_section("5.2 张量与 NumPy 互转（深拷贝版本）")
+
+# 张量转 NumPy（深拷贝）
+t = torch.tensor([1, 2, 3])
+np_arr = t.clone().numpy()  # 使用 clone() 避免内存共享
+print(f"张量转 NumPy (深拷贝): {np_arr}, 类型: {type(np_arr)}")
+
+# 修改张量，验证 NumPy 数组不受影响
+t[0] = 999
+print(f"修改张量后，NumPy 数组不变: {np_arr}")  # 不受影响
+
+# NumPy 转张量（深拷贝）
+np_arr = np.array([4, 5, 6])
+t = torch.tensor(np_arr.copy())  # 使用 copy() 避免内存共享
+print(f"NumPy 转张量 (深拷贝): {t}, 类型: {type(t)}")
+
+# 修改 NumPy 数组，验证张量不受影响
+np_arr[0] = 888
+print(f"修改 NumPy 后，张量不变: {t}")  # 不受影响
 
 # ============================================================================
 # 6. GPU 支持
