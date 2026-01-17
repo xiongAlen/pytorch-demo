@@ -238,11 +238,11 @@ else:
 print_section("7. 实用技巧")
 
 # 设置随机种子（保证可复现）
-torch.manual_seed(42)
+torch.manual_seed(1)
 print(f"设置随机种子后的随机数: {torch.rand(3)}")
 
 # 生成相同的随机数
-torch.manual_seed(42)
+torch.manual_seed(2)
 print(f"相同种子，相同随机数: {torch.rand(3)}")
 
 # 梯度相关（后续章节详细讲解）
@@ -270,6 +270,30 @@ print("\n" + "=" * 50)
 print("  基础教程 1 完成！")
 print("  练习建议：")
 print("  1. 尝试创建不同形状的张量并进行运算")
+# 2x3 张量
+matrix = torch.tensor([[1, 2, 3],
+                      [4, 5, 6]])
+# 1x3 张量（或长度为3的1D张量）
+vector = torch.tensor([10, 20, 30])
+
+# 广播运算：每一行都加上 vector
+result = matrix + vector
+print(result)
+# 结果:
+# [[11, 22, 33],
+#  [14, 25, 36]]
 print("  2. 熟悉张量的索引和切片操作")
+# 3D张量示例
+tensor_3d = torch.rand(2, 3, 4)
+first_slice = tensor_3d[0, :, :]    # 第一个批次的所有数据
+last_column = tensor_3d[:, :, -1]   # 所有批次的最后一列
+
 print("  3. 理解广播机制的工作原理")
+# (3, 1) + (3,) -> (3, 3)
+c = torch.tensor([[1], [2], [3]])  # (3, 1)
+d = torch.tensor([4, 5, 6])        # (3,)
+
+# 广播后：c变成(3, 3)，d变成(3, 3)，然后逐元素相加
+result = c + d  # 结果为 (3, 3) 形状
+print(result)
 print("=" * 50)
