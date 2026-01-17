@@ -1,0 +1,35 @@
+# PyTorch Demo 项目依赖
+
+# PyTorch (CPU 版本)
+torch>=2.0.0
+torchvision>=0.15.0
+
+# 如果需要 GPU 支持，请根据您的 CUDA 版本安装：
+# 对于 CUDA 11.8:
+# torch==2.0.0+cu118 --index-url https://download.pytorch.org/whl/cu118
+# torchvision==0.15.0+cu118 --index-url https://download.pytorch.org/whl/cu118
+
+# 对于 CUDA 12.1:
+# torch==2.0.0+cu121 --index-url https://download.pytorch.org/whl/cu121
+# torchvision==0.15.0+cu121 --index-url https://download.pytorch.org/whl/cu121
+
+# 数据处理
+numpy>=1.24.0
+pandas>=2.0.0
+
+# 可视化
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# 进度条
+tqdm>=4.65.0
+
+# 模型摘要
+torchsummary>=1.5.1
+
+# TensorBoard 支持
+tensorboard>=2.13.0
+
+# Jupyter 支持
+jupyter>=1.0.0
+ipykernel>=6.22.0
