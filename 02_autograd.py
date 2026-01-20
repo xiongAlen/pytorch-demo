@@ -11,10 +11,10 @@ import torch
 
 
 def print_section(title):
-    """打印分节标题"""
-    print("\n" + "=" * 50)
-    print(f"  {title}")
-    print("=" * 50)
+  """打印分节标题"""
+  print("\n" + "=" * 50)
+  print(f"  {title}")
+  print("=" * 50)
 
 
 # ============================================================================
@@ -36,7 +36,6 @@ print(f"y = x² + 3x = {y}")
 y.sum().backward()  # 对 y 求和后再求导
 print(f"dy/dx = {x.grad}")
 
-
 # ============================================================================
 # 2. 理解计算图
 # ============================================================================
@@ -44,10 +43,10 @@ print_section("2. 理解计算图")
 
 # 构建计算图
 x = torch.tensor(2.0, requires_grad=True)
-a = x + 1      # a = 2 + 1 = 3
-b = a ** 2     # b = 3² = 9
-c = b * 3      # c = 9 * 3 = 27
-y = c - 1      # y = 27 - 1 = 26
+a = x + 1  # a = 2 + 1 = 3
+b = a ** 2  # b = 3² = 9
+c = b * 3  # c = 9 * 3 = 27
+y = c - 1  # y = 27 - 1 = 26
 
 print(f"计算过程: x={x.item()} -> a={a.item()} -> b={b.item()} -> c={c.item()} -> y={y.item()}")
 
@@ -62,7 +61,6 @@ y.backward()
 #        = 1 * 3 * 2a * 1 = 6a = 6 * 3 = 18
 print(f"dy/dx = {x.grad}")
 print(f"验证链式法则: 6 * a = {6 * a.item()}")
-
 
 # ============================================================================
 # 3. 多元函数的梯度
@@ -87,7 +85,6 @@ loss.backward()
 print(f"\n∂loss/∂x = {x.grad}")
 print(f"∂loss/∂W = {W.grad}")
 
-
 # ============================================================================
 # 4. 禁用梯度计算
 # ============================================================================
@@ -97,8 +94,8 @@ x = torch.tensor([1.0, 2.0, 3.0], requires_grad=True)
 
 # 方法 1: 使用 torch.no_grad()
 with torch.no_grad():
-    y = x ** 2
-    print(f"在 no_grad 中, y.requires_grad = {y.requires_grad}")
+  y = x ** 2
+  print(f"在 no_grad 中, y.requires_grad = {y.requires_grad}")
 
 # 方法 2: 使用 detach()
 z = x.detach()
@@ -107,7 +104,6 @@ print(f"使用 detach, z.requires_grad = {z.requires_grad}")
 # 方法 3: 直接设置 requires_grad=False
 x.requires_grad_(False)
 print(f"设置 False 后, x.requires_grad = {x.requires_grad}")
-
 
 # ============================================================================
 # 5. 梯度积累
@@ -125,12 +121,11 @@ print(f"第一次: x² 在 x=2 处的梯度 = {x.grad.item()}")
 y2 = x ** 3
 y2.backward()
 print(f"第二次: 累积梯度 = {x.grad.item()}")
-print(f"预期: 2x + 3x² = {2*2 + 3*2**2} = {2*2 + 3*4}")
+print(f"预期: 2x + 3x² = {2 * 2 + 3 * 2 ** 2} = {2 * 2 + 3 * 4}")
 
 # 清零梯度
 x.grad.zero_()
 print(f"清零后: {x.grad}")
-
 
 # ============================================================================
 # 6. 实际应用：线性回归的梯度下降
@@ -158,31 +153,30 @@ print("开始训练...\n")
 
 # 梯度下降训练
 for epoch in range(epochs):
-    # 前向传播
-    y_pred = w * X + b
+  # 前向传播
+  y_pred = w * X + b
 
-    # 计算损失 (MSE)
-    loss = ((y_pred - y) ** 2).mean()
+  # 计算损失 (MSE)
+  loss = ((y_pred - y) ** 2).mean()
 
-    # 反向传播
-    loss.backward()
+  # 反向传播
+  loss.backward()
 
-    # 更新参数（手动实现）
-    with torch.no_grad():
-        w -= learning_rate * w.grad
-        b -= learning_rate * b.grad
+  # 更新参数（手动实现）
+  with torch.no_grad():
+    w -= learning_rate * w.grad
+    b -= learning_rate * b.grad
 
-    # 清零梯度
-    w.grad.zero_()
-    b.grad.zero_()
+  # 清零梯度
+  w.grad.zero_()
+  b.grad.zero_()
 
-    # 打印进度
-    if (epoch + 1) % 20 == 0:
-        print(f"Epoch [{epoch+1}/{epochs}], Loss: {loss.item():.4f}, "
-              f"w: {w.item():.4f}, b: {b.item():.4f}")
+  # 打印进度
+  if (epoch + 1) % 20 == 0:
+    print(f"Epoch [{epoch + 1}/{epochs}], Loss: {loss.item():.4f}, "
+          f"w: {w.item():.4f}, b: {b.item():.4f}")
 
 print(f"\n训练后参数: w = {w.item():.4f}, b = {b.item():.4f}")
-
 
 # ============================================================================
 # 7. 使用优化器
@@ -200,25 +194,24 @@ print(f"初始参数: w = {w.item():.4f}, b = {b.item():.4f}")
 print("使用 SGD 优化器训练...\n")
 
 for epoch in range(epochs):
-    # 前向传播
-    y_pred = w * X + b
+  # 前向传播
+  y_pred = w * X + b
 
-    # 计算损失
-    loss = ((y_pred - y) ** 2).mean()
+  # 计算损失
+  loss = ((y_pred - y) ** 2).mean()
 
-    # 反向传播
-    loss.backward()
+  # 反向传播
+  loss.backward()
 
-    # 优化器更新参数（会自动清零梯度）
-    optimizer.step()
-    optimizer.zero_grad()
+  # 优化器更新参数（会自动清零梯度）
+  optimizer.step()
+  optimizer.zero_grad()
 
-    if (epoch + 1) % 20 == 0:
-        print(f"Epoch [{epoch+1}/{epochs}], Loss: {loss.item():.4f}, "
-              f"w: {w.item():.4f}, b: {b.item():.4f}")
+  if (epoch + 1) % 20 == 0:
+    print(f"Epoch [{epoch + 1}/{epochs}], Loss: {loss.item():.4f}, "
+          f"w: {w.item():.4f}, b: {b.item():.4f}")
 
 print(f"\n训练后参数: w = {w.item():.4f}, b = {b.item():.4f}")
-
 
 # ============================================================================
 # 8. 高级特性：梯度裁剪
@@ -238,14 +231,15 @@ y.backward()
 torch.nn.utils.clip_grad_norm_([x], max_norm=1.0)
 print(f"裁剪后的梯度: {x.grad.item():.4f}")
 
-
 # ============================================================================
 # 9. 检查梯度
 # ============================================================================
 print_section("9. 检查梯度（数值验证）")
 
+
 def f(x):
-    return x ** 3 + 2 * x ** 2 + x
+  return x ** 3 + 2 * x ** 2 + x
+
 
 x = torch.tensor(2.0, requires_grad=True)
 y = f(x)
@@ -261,15 +255,16 @@ print(f"数值梯度: f'(2) ≈ {numerical_grad.item():.4f}")
 # 使用 PyTorch 的梯度检查
 from torch.autograd import gradcheck
 
+
 # 创建一个需要检查梯度的函数
 def func(x):
-    return x ** 3
+  return x ** 3
+
 
 # gradcheck 需要输入是 double 类型的张量
 input = torch.randn(2, 1, dtype=torch.double, requires_grad=True)
 test = gradcheck(func, input, eps=1e-6, atol=1e-4)
 print(f"梯度检查结果: {'通过' if test else '失败'}")
-
 
 print("\n" + "=" * 50)
 print("  基础教程 2 完成！")
